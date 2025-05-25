@@ -1,5 +1,6 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import { loadFavorites, saveFavoriteBars, saveFavoriteCocktails } from "./favorite-storage";
+import { View } from "react-native";
 
 export type FavoriteContextValue = {
   toggleFavoriteCocktail: (cocktailId: string) => void;
@@ -15,6 +16,9 @@ const favoriteContext = createContext<FavoriteContextValue | undefined>(undefine
 const FavoriteContextProvider = favoriteContext.Provider;
 
 export const FavoriteProvider = ({ children }: { children: ReactNode }) => {
+
+  const [favoriteState, setFavoriteState] = useState<FavoriteContextValue>();
+
   const [cocktails, setCocktails] = useState<string[]>([]);
   const [bars, setBars] = useState<string[]>([]);
 
@@ -66,19 +70,14 @@ export const FavoriteProvider = ({ children }: { children: ReactNode }) => {
 
   const getFavoriteCocktails = () => cocktails;
   const getFavoriteBars = () => bars;
-
-  return (
-    <FavoriteContextProvider
-      value={{
-        toggleFavoriteCocktail,
-        toggleFavoriteBar,
-        getFavoriteCocktails,
-        getFavoriteBars,
-      }}
-    >
-      {children}
-    </FavoriteContextProvider>
-  );
+  
+  if (favoriteState) {
+    return (
+      <FavoriteContextProvider value={favoriteState}>
+        {children}
+      </FavoriteContextProvider>
+    );
+  }
 
 }
 
