@@ -1,9 +1,9 @@
-import { MockCocktailService } from "./mock";
-import { RealCocktailService } from "./real";
+import { CocktailServiceMock } from "./mock";
+import { CocktailServiceReal } from "./real";
+import type { ICocktailService } from "./types";
 
+const CocktailService: ICocktailService = process.env.USE_MOCK === 'true'
+  ? new CocktailServiceMock()
+  : new CocktailServiceReal();
 
-export const getCocktailService = () => {
-  return process.env.USE_MOCK === 'true'
-    ? MockCocktailService
-    : RealCocktailService;
-};
+export default CocktailService;

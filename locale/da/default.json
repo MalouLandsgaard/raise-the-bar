@@ -1,0 +1,10 @@
+{
+  "components": {
+    "heroCocktail": {
+      "label": "Cocktail of the Month"
+    }
+  },
+  "common": {
+    "favorite": "Favorite"
+  }
+}

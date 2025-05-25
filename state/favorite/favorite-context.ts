@@ -1,6 +1,5 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import { loadFavorites, saveFavoriteBars, saveFavoriteCocktails } from "./favorite-storage";
-import { View } from "react-native";
 
 export type FavoriteContextValue = {
   toggleFavoriteCocktail: (cocktailId: string) => void;
@@ -11,14 +10,9 @@ export type FavoriteContextValue = {
 
 class FavoriteError extends Error {}
 
-const favoriteContext = createContext<FavoriteContextValue | undefined>(undefined);
-
-const FavoriteContextProvider = favoriteContext.Provider;
+const FavoriteContext = createContext<FavoriteContextValue | undefined>(undefined);
 
 export const FavoriteProvider = ({ children }: { children: ReactNode }) => {
-
-  const [favoriteState, setFavoriteState] = useState<FavoriteContextValue>();
-
   const [cocktails, setCocktails] = useState<string[]>([]);
   const [bars, setBars] = useState<string[]>([]);
 
@@ -44,22 +38,22 @@ export const FavoriteProvider = ({ children }: { children: ReactNode }) => {
   }
 
   const toggleFavoriteCocktail = (cocktailId: string) => {
-    setCocktails((prev) => {
-      const isFavorite = prev.includes(cocktailId);
+    setCocktails((favorites) => {
+      const isFavorite = favorites.includes(cocktailId);
       const updatedFavorites = isFavorite
-        ? prev.filter((id) => id !== cocktailId)
-        : [...prev, cocktailId];
+        ? favorites.filter((id) => id !== cocktailId)
+        : [...favorites, cocktailId];
       updateFavoriteCocktails(updatedFavorites);
       return updatedFavorites;
     });
   }
 
   const toggleFavoriteBar = (barId: string) => {
-    setBars((prev) => {
-      const isFavorite = prev.includes(barId);
+    setBars((favorites) => {
+      const isFavorite = favorites.includes(barId);
       const updatedFavorites = isFavorite
-        ? prev.filter((id) => id !== barId)
-        : [...prev, barId];
+        ? favorites.filter((id) => id !== barId)
+        : [...favorites, barId];
       updateFavoriteBars(updatedFavorites);
       return updatedFavorites;
     });
@@ -71,18 +65,21 @@ export const FavoriteProvider = ({ children }: { children: ReactNode }) => {
   const getFavoriteCocktails = () => cocktails;
   const getFavoriteBars = () => bars;
   
-  if (favoriteState) {
-    return (
-      <FavoriteContextProvider value={favoriteState}>
-        {children}
-      </FavoriteContextProvider>
-    );
-  }
+  return (
+    <FavoriteContext.Provider value={{
+      toggleFavoriteCocktail,
+      toggleFavoriteBar,
+      getFavoriteCocktails,
+      getFavoriteBars,
+    }}>
+  {children}
+    </FavoriteContext.Provider>
+  );
 
 }
 
 export const useFavorite = () => {
-  const context = useContext(favoriteContext);
+  const context = useContext(FavoriteContext);
 
   if (!context) {
     throw new Error("useFavorite cannot be used outside of FavoriteProvider");

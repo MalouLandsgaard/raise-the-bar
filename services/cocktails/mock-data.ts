@@ -1,5 +1,7 @@
 import { CocktailDetails } from './types';
 
+export const MOCK_COCKTAIL_OF_THE_MONTH_ID = '2';
+
 export const MOCK_COCKTAILS: CocktailDetails[] = [
   {
     id: '1',

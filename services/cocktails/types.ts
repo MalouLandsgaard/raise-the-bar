@@ -23,4 +23,6 @@ export interface CocktailDetails extends CocktailSummary {
 
 export interface ICocktailService {
   getCocktailById(id: string): Promise<CocktailDetails>;
+  getAllCocktails(): Promise<CocktailSummary[]>;
+  getCocktailOfTheMonth(): Promise<CocktailSummary>;
 }

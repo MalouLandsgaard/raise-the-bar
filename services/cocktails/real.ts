@@ -1,7 +1,15 @@
-import { CocktailDetails, ICocktailService } from "./types";
+import { CocktailDetails, CocktailSummary, ICocktailService } from "./types";
 
-export class RealCocktailService implements ICocktailService {
+export class CocktailServiceReal implements ICocktailService {
   async getCocktailById(id: string): Promise<CocktailDetails> {
+    throw new Error("Not implemented");
+  }
+
+  async getAllCocktails(): Promise<CocktailSummary[]> {
+    throw new Error("Not implemented");
+  }
+
+  async getCocktailOfTheMonth(): Promise<CocktailSummary> {
     throw new Error("Not implemented");
   }
 };
