@@ -6,25 +6,32 @@ export type FavoriteContextValue = {
   toggleFavoriteBar: (barId: string) => void;
   getFavoriteCocktails: () => string[];
   getFavoriteBars: () => string[];
+  isFavoriteCocktail: (cocktailId: string) => boolean;
+  isFavoriteBar: (barId: string) => boolean;
 }
 
-class FavoriteError extends Error {}
+class FavoriteError extends Error { }
 
-const FavoriteContext = createContext<FavoriteContextValue | undefined>(undefined);
+const favoriteContext = createContext<FavoriteContextValue | undefined>(undefined);
+
+const FavoriteContextProvider = favoriteContext.Provider;
 
 export const FavoriteProvider = ({ children }: { children: ReactNode }) => {
   const [cocktails, setCocktails] = useState<string[]>([]);
   const [bars, setBars] = useState<string[]>([]);
 
   useEffect(() => {
-    try {
-      const { cocktails: savedCocktails, bars: savedBars } = loadFavorites();
-      setCocktails(savedCocktails);
-      setBars(savedBars);
-    } catch (error) {
-      console.log(error);
-      throw new FavoriteError("Failed to load favorites");
-    }
+    const fetchFavorites = async () => {
+      try {
+        const { cocktails: savedCocktails, bars: savedBars } = await loadFavorites();
+        setCocktails(savedCocktails);
+        setBars(savedBars);
+      } catch (error) {
+        console.log(error);
+        throw new FavoriteError("Failed to load favorites");
+      }
+    };
+    fetchFavorites();
   }, []);
 
   const updateFavoriteCocktails = (updated: string[]) => {
@@ -64,22 +71,24 @@ export const FavoriteProvider = ({ children }: { children: ReactNode }) => {
 
   const getFavoriteCocktails = () => cocktails;
   const getFavoriteBars = () => bars;
-  
+
   return (
-    <FavoriteContext.Provider value={{
+    <FavoriteContextProvider value={{
       toggleFavoriteCocktail,
       toggleFavoriteBar,
       getFavoriteCocktails,
       getFavoriteBars,
+      isFavoriteCocktail,
+      isFavoriteBar
     }}>
-  {children}
-    </FavoriteContext.Provider>
+      {children}
+    </FavoriteContextProvider>
   );
 
 }
 
 export const useFavorite = () => {
-  const context = useContext(FavoriteContext);
+  const context = useContext(favoriteContext);
 
   if (!context) {
     throw new Error("useFavorite cannot be used outside of FavoriteProvider");

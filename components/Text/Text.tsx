@@ -6,13 +6,13 @@ import { Text as RNText, type TextProps as RNTextProps, TextStyle } from 'react-
 
 export interface TextDefaultProps extends RNTextProps {
   size?: BodyFontSizeKey;
-  weight?: keyof (typeof fontFamily)['FontNameHere'];
+  weight?: keyof (typeof fontFamily)['FontTBD'];
   color?: ColorKey;
   textAlign?: TextStyle['textAlign'];
 }
 
 const TextDefault: FC<TextDefaultProps> = forwardRef<RNText, TextDefaultProps>(
-  ({ size = 'base', weight = 'light', color, textAlign, style, ...props }, ref) => {
+  ({ size = 'base', weight = 'regular', color, textAlign, style, ...props }, ref) => {
     return (
       <RNText
         ref={ref}
@@ -20,7 +20,7 @@ const TextDefault: FC<TextDefaultProps> = forwardRef<RNText, TextDefaultProps>(
         style={[
           {
             ...fontSize.body[size],
-            ...fontFamily.FontNameHere[weight],
+            ...fontFamily.FontTBD[weight],
             color: colors[color ?? 'text.primary'],
             textAlign,
           },
@@ -35,7 +35,7 @@ TextDefault.displayName = 'Text';
 
 export interface TextHeadingProps extends RNTextProps {
   size?: HeadingFontSizeKey;
-  weight?: keyof (typeof fontFamily)['FontNameHere'];
+  weight?: keyof (typeof fontFamily)['FontTBD'];
   color?: ColorKey;
   textAlign?: TextStyle['textAlign'];
 }
@@ -49,7 +49,7 @@ const TextHeading: FC<TextHeadingProps> = forwardRef<RNText, TextHeadingProps>(
         style={[
           {
             ...fontSize.heading[size],
-            ...fontFamily.FontNameHere[weight],
+            ...fontFamily.FontTBD[weight],
             color: colors[color ?? 'text.primary'],
             textAlign,
           },

@@ -9,8 +9,8 @@ export const fontSize = {
       lineHeight: 26,
     },
     sm: {
-      fontSize: 14,
-      lineHeight: 18,
+      fontSize: 16,
+      lineHeight: 24,
     },
   },
   body: {
@@ -23,13 +23,9 @@ export const fontSize = {
       lineHeight: 24,
     },
     sm: {
-      fontSize: 12,
+      fontSize: 14,
       lineHeight: 16,
     },
-  },
-  quote: {
-    fontSize: 20,
-    lineHeight: 26,
   },
 } as const;
 
@@ -38,7 +34,7 @@ export type BodyFontSizeKey = keyof (typeof fontSize)["body"];
 
 
 export const fontFamily = {
-  FontNameHere: {
+  FontTBD: {
     medium: {
       fontFamily: "DMSans-Medium",
       fontWeight: "500",

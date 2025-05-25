@@ -2,6 +2,9 @@
   "components": {
     "heroCocktail": {
       "label": "Cocktail of the Month"
+    },
+    "cocktailList": {
+      "title": "All Cocktails"
     }
   },
   "common": {
