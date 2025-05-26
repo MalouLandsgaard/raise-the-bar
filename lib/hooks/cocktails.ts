@@ -14,3 +14,11 @@ export const useCocktails = () => {
     queryFn: () => CocktailService.getAllCocktails(),
   });
 }
+
+export const useCocktailDetails = (id: string) => {
+  return useQuery({
+    queryKey: ['cocktailDetails', id],
+    queryFn: () => CocktailService.getCocktailById(id),
+    enabled: !!id,
+  });
+}

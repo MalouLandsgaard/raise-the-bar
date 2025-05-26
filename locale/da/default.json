@@ -1,4 +1,10 @@
 {
+  "screens": {
+    "cocktailDetail": {
+      "ingredients": "Ingredients",
+      "instructions": "Instructions"
+    }
+  },
   "components": {
     "heroCocktail": {
       "label": "Cocktail of the Month"

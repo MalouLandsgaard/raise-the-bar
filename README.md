@@ -11,7 +11,7 @@ A React Native app for discovering and favoriting cocktails and bars.
 - Browse a list of cocktails
 - View cocktail of the month
 - Mark cocktails as favorites
-- Localized (Danish)
+- Localized (English)
 - Built with Expo, React Native, and TypeScript
 
 ## Getting Started
@@ -54,5 +54,6 @@ Copy `.env.example` to `.env` and set the variables as needed.
 
 ## TODO
 
+- Add design for CocktailDetail screen
 - Add a map view showing favorite bars (e.g., Gaia in Copenhagen)
 - Implement a brand for the app
