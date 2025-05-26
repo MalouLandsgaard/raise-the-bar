@@ -51,3 +51,8 @@ Copy `.env.example` to `.env` and set the variables as needed.
 - `services/` - Data fetching and mock data
 - `state/` - Context and state management
 - `locale/` - Localization files
+
+## TODO
+
+- Add a map view showing favorite bars (e.g., Gaia in Copenhagen)
+- Implement a brand for the app
